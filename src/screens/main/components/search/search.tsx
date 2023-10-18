@@ -59,6 +59,9 @@ export const Search: FC<Props> = memo(({ onCityChosen }) => {
         onChangeText={setValue}
         style={styles.input}
         placeholder="Enter city name"
+        placeholderTextColor={
+          theme === "light" ? undefined : "rgba(255, 255, 255, 0.7)"
+        }
       />
       {value ? (
         <TouchableOpacity onPress={onSearchPress} style={styles.searchBtn}>
