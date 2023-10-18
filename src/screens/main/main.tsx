@@ -17,11 +17,14 @@ import {
 } from "../../api/types";
 import { Routes } from "../../navigation/types";
 import { MainNavigationProps } from "../../navigation/stack-navigator";
+import { useAppContext } from "../../context/app-context/app-context";
 
 import { styles } from "./main.styles";
 
 export const Main: FC = () => {
   const { navigate } = useNavigation<MainNavigationProps>();
+
+  const { theme } = useAppContext();
 
   const [currentWeatherData, setCurrentWeatherData] = useState<
     CurrentWeatherType | undefined
@@ -125,7 +128,14 @@ export const Main: FC = () => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme === "light" ? "white" : "black",
+        },
+      ]}
+    >
       {currentWeatherData && (
         <>
           {!lastUpdatedTimestamp && <Search onCityChosen={onCityChosen} />}

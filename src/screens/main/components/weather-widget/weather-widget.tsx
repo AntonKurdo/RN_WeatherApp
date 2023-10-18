@@ -1,5 +1,11 @@
 import React, { FC, memo } from "react";
-import { ActivityIndicator, Image, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 import { useAppContext } from "../../../../context/app-context/app-context";
 import { CurrentWeatherType } from "../../../../api/types";
@@ -22,11 +28,23 @@ export const WeatherWidget: FC<Props> = memo(
   ({ currentWeaterData, onUpdate, loading, lastUpdatedTimestamp }) => {
     const { localization } = useAppContext();
 
+    const { width } = useWindowDimensions();
+
     return (
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <View style={{ alignItems: "center" }}>
-            <Text style={styles.placeLabel}>{currentWeaterData?.name}</Text>
+            <Text
+              numberOfLines={1}
+              style={[
+                styles.placeLabel,
+                {
+                  maxWidth: width / 1.7,
+                },
+              ]}
+            >
+              {currentWeaterData?.name}
+            </Text>
           </View>
 
           <View>

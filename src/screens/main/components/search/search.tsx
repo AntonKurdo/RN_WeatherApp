@@ -16,10 +16,11 @@ import { weatherApi } from "../../../../api";
 import { CityType } from "../../../../api/types";
 import { IconButton } from "../../../../components/icon-button";
 import { Icon } from "../../../../components/icon";
-
-import { styles } from "./search.styles";
 import { MainNavigationProps } from "../../../../navigation/stack-navigator";
 import { Routes } from "../../../../navigation/types";
+import { useAppContext } from "../../../../context/app-context/app-context";
+
+import { styles } from "./search.styles";
 
 type Props = {
   onCityChosen: ({ lat, lon }: { lat: number; lon: number }) => void;
@@ -27,15 +28,16 @@ type Props = {
 
 export const Search: FC<Props> = memo(({ onCityChosen }) => {
   const { navigate } = useNavigation<MainNavigationProps>();
+  const { top } = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+
+  const { theme } = useAppContext();
 
   const [value, setValue] = useState("");
 
   const [isFetching, setFetching] = useState(false);
 
   const [cities, setCities] = useState<CityType[]>([]);
-
-  const { top } = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
 
   const onSearchPress = async () => {
     setFetching(true);
@@ -82,14 +84,12 @@ export const Search: FC<Props> = memo(({ onCityChosen }) => {
           }}
         />
       )}
-      <Modal visible={cities.length > 0} animationType="slide">
+      <Modal visible={cities.length > 0} transparent animationType="slide">
         <View
-          style={{
-            width,
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={[
+            styles.overlay,
+            { width, backgroundColor: theme === "light" ? "white" : "black" },
+          ]}
         >
           {cities.length > 0 && (
             <ScrollView style={{ flex: 1, marginTop: top }}>
@@ -106,7 +106,12 @@ export const Search: FC<Props> = memo(({ onCityChosen }) => {
                     style={{ width, paddingHorizontal: 20, paddingVertical: 8 }}
                     key={c.name + index}
                   >
-                    <Text style={styles.cityLabel}>
+                    <Text
+                      style={[
+                        styles.cityLabel,
+                        { color: theme === "light" ? "black" : "white" },
+                      ]}
+                    >
                       {c.name}, {c.country}
                     </Text>
                   </TouchableOpacity>
@@ -120,7 +125,7 @@ export const Search: FC<Props> = memo(({ onCityChosen }) => {
               <Icon
                 type="AntDesign"
                 name={"closecircleo"}
-                color="black"
+                color={theme === "light" ? "black" : "white"}
                 size={30}
               />
             }

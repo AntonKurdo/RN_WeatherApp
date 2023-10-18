@@ -40,4 +40,9 @@ export const styles = StyleSheet.create({
   cityLabel: {
     fontSize: 20,
   },
+  overlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

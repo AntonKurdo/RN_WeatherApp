@@ -15,7 +15,7 @@ type Props = {
 };
 
 export const HoursForecastWidget: FC<Props> = ({ data, loading }) => {
-  const { localization } = useAppContext();
+  const { localization, theme } = useAppContext();
 
   const renderItem = useCallback(
     ({ item }: { item: ForecastWeatherListItemType }) => {
@@ -60,7 +60,14 @@ export const HoursForecastWidget: FC<Props> = ({ data, loading }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme === "light" ? "white" : "black",
+        },
+      ]}
+    >
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal

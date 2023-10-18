@@ -1,5 +1,11 @@
 import React, { useCallback, useContext, useState } from "react";
-import { AppContextType, LocalizationType } from "./app-context.types";
+import { StatusBar } from "expo-status-bar";
+
+import {
+  AppContextType,
+  LocalizationType,
+  ThemeType,
+} from "./app-context.types";
 
 export const AppContext = React.createContext<AppContextType | null>(null);
 
@@ -7,6 +13,8 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [localization, setLocalization] = useState<LocalizationType>("be");
+
+  const [theme, setTheme] = useState<ThemeType>("dark");
 
   const updateLocalization = useCallback(() => {
     if (localization === "en") {
@@ -16,8 +24,19 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [localization]);
 
+  const updateTheme = useCallback(() => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, [theme]);
+
   return (
-    <AppContext.Provider value={{ localization, updateLocalization }}>
+    <AppContext.Provider
+      value={{ localization, updateLocalization, theme, updateTheme }}
+    >
+      <StatusBar style={theme === "dark" ? "light" : "dark"} />
       {children}
     </AppContext.Provider>
   );

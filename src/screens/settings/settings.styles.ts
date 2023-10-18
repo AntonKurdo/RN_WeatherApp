@@ -26,7 +26,6 @@ export const styles = StyleSheet.create({
     bottom: 0,
     height: "30%",
     width: "100%",
-    backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -43,5 +42,11 @@ export const styles = StyleSheet.create({
     marginRight: 16,
     fontSize: 20,
     color: "white",
+  },
+  modeWrapper: {
+    marginVertical: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

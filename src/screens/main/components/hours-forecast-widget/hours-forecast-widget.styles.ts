@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     marginBottom: 8,
-    backgroundColor: "white",
     paddingBottom: 8,
   },
   itemWrapper: {
@@ -14,6 +13,7 @@ export const styles = StyleSheet.create({
     marginRight: 16,
     justifyContent: "center",
     alignItems: "center",
+    overflow: "hidden",
   },
   icon: {
     width: 65,
